@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://b2x1vkj452kjc"]
+
+[ext_resource type="Script" uid="uid://73g5g5ukxdvc" path="res://addons/TagEditor/UI/TagEditorUI/TagEditorUI.gd" id="1_0jh38"]
+[ext_resource type="PackedScene" uid="uid://bbgcdcy8c1j2a" path="res://addons/TagEditor/UI/TagSelectorUI/TagSelectorUI.tscn" id="2_45c0a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgxlj"]
+bg_color = Color(0.13682574, 0.13682574, 0.13682568, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45c0a"]
+bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
+
+[node name="TagEditorUI" type="PopupPanel" unique_id=1749380643]
+oversampling_override = 1.0
+size = Vector2i(308, 308)
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_dgxlj")
+script = ExtResource("1_0jh38")
+metadata/_custom_type_script = "uid://73g5g5ukxdvc"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1532504056]
+offset_right = 308.0
+offset_bottom = 308.0
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=566453574]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_45c0a")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer" unique_id=513522123]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer" unique_id=1220840912]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1481745801]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1259630905]
+layout_mode = 2
+text = "Name:"
+
+[node name="NewTagLineEdit" type="LineEdit" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=24776098]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddNewTagButton" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=30423574]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Add New Tag"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=1792248083]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TagSelectorUI" parent="VBoxContainer/ScrollContainer" unique_id=62304206 instance=ExtResource("2_45c0a")]
+unique_name_in_owner = true
+layout_mode = 2

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b04yb06shnx7e"]
+
+[ext_resource type="Script" uid="uid://dy1s66ipqpcw7" path="res://Maps/DevMap.gd" id="1_jwdru"]
+[ext_resource type="Script" uid="uid://clhxpt2xywl0x" path="res://addons/TagEditor/TagContainer/TagContainer.gd" id="2_o8ftu"]
+
+[sub_resource type="Resource" id="Resource_o8ftu"]
+script = ExtResource("2_o8ftu")
+tags = Array[StringName]([&"State.Debuff", &"Action.Attack.Range"])
+
+[node name="DevMap" type="Node2D" unique_id=1205010389]
+script = ExtResource("1_jwdru")
+tag_container = SubResource("Resource_o8ftu")

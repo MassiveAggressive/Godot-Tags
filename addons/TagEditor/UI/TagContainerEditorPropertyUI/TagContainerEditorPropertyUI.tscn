@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://4hkbedawcthv"]
+
+[node name="TagEditorPropertyUI" type="Button" unique_id=575267131]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Edit"
