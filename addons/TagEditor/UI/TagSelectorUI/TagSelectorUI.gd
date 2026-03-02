@@ -2,13 +2,22 @@
 class_name TagSelectorUI extends Tree
 
 signal TagsUpdated
+signal TagSelected(selected_tag_name: StringName)
 
 var root: TreeItem
 var items: Dictionary[StringName, TreeItem]
-var selected_tag_names: Array[StringName]
+
+@export var selected_tag_names: Array[StringName]:
+	set(value):
+		CheckTags(selected_tag_names, false)
+		
+		selected_tag_names = value
+		print(selected_tag_names)
+		
+		CheckTags(selected_tag_names)
 
 func _init() -> void:
-	TagManager.TagsUpdated.connect(Update)
+	TagManager.TagsUpdated.connect(CreateItem)
 	
 	item_edited.connect(ItemEdited)
 	
@@ -19,15 +28,16 @@ func _init() -> void:
 	set_column_custom_minimum_width(0, 30)
 	set_column_expand(1, true)
 	
-	Update()
+	CreateTree()
 
-func Update() -> void:
+func CreateTree() -> void:
 	clear()
 	items.clear()
 	
 	root = create_item()
 	
 	for tag_name in TagManager.tag_database.keys():
+		print(tag_name)
 		FindOrCreateItem(tag_name)
 
 func FindOrCreateItem(tag_name: StringName) -> TreeItem:
@@ -62,8 +72,13 @@ func CreateItem(tag_name: StringName, parent: TreeItem = root) -> TreeItem:
 	
 	return new_item
 
+func CheckTags(checked_tags: Array[StringName], checked: bool = true) -> void:
+	for tag_name in checked_tags:
+		CheckItem(tag_name, checked)
+
 func CheckItem(tag_name: StringName, checked: bool = true) -> void:
-	items[tag_name].set_checked(0, checked)
+	if items.has(tag_name):
+		items[tag_name].set_checked(0, checked)
 
 func ItemEdited() -> void:
 	var item: TreeItem = get_edited()
@@ -77,3 +92,7 @@ func ItemEdited() -> void:
 		selected_tag_names.erase(tag_name)
 	
 	TagsUpdated.emit()
+	
+	print(selected_tag_names)
+	
+	TagSelected.emit(tag_name)

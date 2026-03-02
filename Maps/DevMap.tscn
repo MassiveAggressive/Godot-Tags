@@ -2,11 +2,32 @@
 
 [ext_resource type="Script" uid="uid://dy1s66ipqpcw7" path="res://Maps/DevMap.gd" id="1_jwdru"]
 [ext_resource type="Script" uid="uid://clhxpt2xywl0x" path="res://addons/TagEditor/TagContainer/TagContainer.gd" id="2_o8ftu"]
+[ext_resource type="Script" uid="uid://bl2411kpkrhg0" path="res://addons/TagEditor/UI/TagSelectorUI/TagSelectorUI.gd" id="3_uhge4"]
+
+[sub_resource type="Resource" id="Resource_uhge4"]
+script = ExtResource("2_o8ftu")
+tags = Array[StringName]([&"State", &"State.Debuff", &"State.Debuff.Poison", &"State.Debuff.Burn", &"Action", &"Action.Attack", &"Action.Attack.Range"])
 
 [sub_resource type="Resource" id="Resource_o8ftu"]
 script = ExtResource("2_o8ftu")
-tags = Array[StringName]([&"State.Debuff", &"Action.Attack.Range"])
+tags = Array[StringName]([&"State", &"State.Debuff.Burn", &"Action.Attack.Range", &"Action.Attack", &"Action", &"State.Debuff", &"State.Debuff.Poison"])
 
-[node name="DevMap" type="Node2D" unique_id=1205010389]
+[node name="DevMap" type="Node2D" unique_id=1205010389 node_paths=PackedStringArray("tag_selector")]
 script = ExtResource("1_jwdru")
-tag_container = SubResource("Resource_o8ftu")
+tag_container = SubResource("Resource_uhge4")
+tag_container1 = SubResource("Resource_o8ftu")
+tag_selector = NodePath("CanvasLayer/TagSelectorUI")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=758001208]
+
+[node name="TagSelectorUI" type="Tree" parent="CanvasLayer" unique_id=110425431]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+hide_root = true
+script = ExtResource("3_uhge4")
+selected_tag_names = Array[StringName]([&"State.Debuff.Poison", &"State.Debuff", &"Action.Attack.Range"])
+metadata/_custom_type_script = "uid://bl2411kpkrhg0"

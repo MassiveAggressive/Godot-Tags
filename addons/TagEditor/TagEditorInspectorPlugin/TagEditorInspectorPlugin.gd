@@ -7,6 +7,9 @@ func _init() -> void:
 	print("TagEditorInspectorPlugin _init")
 	
 	tag_editor_ui = preload("res://addons/TagEditor/UI/TagEditorUI/TagEditorUI.tscn").instantiate()
+	
+	EditorInterface.get_base_control().add_child(tag_editor_ui)
+	tag_editor_ui.hide()
 
 func _can_handle(object: Object) -> bool:
 	return true

@@ -3,8 +3,11 @@ class_name TagContainer extends Resource
 
 @export var tags: Array[StringName]
 
-func AddTag(tag_name: StringName) -> void:
+func AddTagName(tag_name: StringName) -> void:
 	tags.append(tag_name)
+
+func AddTag(tag: Tag) -> void:
+	pass
 
 func RemoveTag(tag_name: StringName) -> void:
 	tags.erase(tag_name)
