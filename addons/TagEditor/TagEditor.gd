@@ -1,15 +1,14 @@
 @tool
 extends EditorPlugin
 
-var tag_editor_inspector_plugin: TagEditorInspectorPlugin
+var tag_inspector: TagEditorInspectorPlugin
 
 func _enter_tree() -> void:
-	print("TagEditor _enter_tree")
-	
-	tag_editor_inspector_plugin = TagEditorInspectorPlugin.new()
-	add_inspector_plugin(tag_editor_inspector_plugin)
-	
 	add_autoload_singleton("TagManager", "res://addons/TagEditor/TagManager/TagManager.gd")
+	
+	tag_inspector = TagEditorInspectorPlugin.new()
+	add_inspector_plugin(tag_inspector)
 
 func _exit_tree() -> void:
-	remove_inspector_plugin(tag_editor_inspector_plugin)
+	remove_autoload_singleton("TagManager")
+	remove_inspector_plugin(tag_inspector)

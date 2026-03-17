@@ -1,40 +1,42 @@
 class_name TagContainerEditorProperty extends EditorProperty
 
-var edited_tag_container: TagContainer
-
-var tag_container_editor_property_ui: Button
+var button_scene: PackedScene = preload("uid://bd3bpl3rv07ia")
+var button: TagContainerEditorPropertyUI # Kept this declaration as it's used in the new code
+var edited_container: TagContainer
 var tag_editor_ui: TagEditorUI
 
 func _init(_tag_editor_ui: TagEditorUI) -> void:
 	tag_editor_ui = _tag_editor_ui
-	tag_editor_ui.tag_selector.TagsUpdated.connect(OnTagsUpdated)
+	button = button_scene.instantiate()
 	
-	tag_container_editor_property_ui = preload("res://addons/TagEditor/UI/TagContainerEditorPropertyUI/TagContainerEditorPropertyUI.tscn").instantiate()
+	add_child(button)
+	add_focusable(button)
 	
-	add_child(tag_container_editor_property_ui)
-	add_focusable(tag_container_editor_property_ui)
-	
-	tag_container_editor_property_ui.pressed.connect(OnButtonPressed)
-
-func _update_property() -> void:
-	edited_tag_container = get_edited_object()[get_edited_property()]
-	
-	if !edited_tag_container:
-		emit_changed(get_edited_property(), TagContainer.new())
+	button.pressed.connect(OnButtonPressed)
 
 func OnButtonPressed() -> void:
-	tag_editor_ui.tag_selector.selected_tag_names = edited_tag_container.tags
+	tag_editor_ui.SetSelectedTags(edited_container.default_tags)
 	
-	var button_position: Vector2 = tag_container_editor_property_ui.get_screen_transform().origin
-	var popup_panel_position: Vector2 = button_position + Vector2(0.0, tag_container_editor_property_ui.size.y)
+	# Disconnect previous connections to avoid multiple listeners
+	for connection in tag_editor_ui.TagsChanged.get_connections():
+		tag_editor_ui.TagsChanged.disconnect(connection.callable)
 	
-	tag_editor_ui.popup(Rect2(popup_panel_position, Vector2(300.0, 300.0)))
+	tag_editor_ui.TagsChanged.connect(OnTagsChanged)
+	
+	# Position the popup below the property
+	var popup_pos: Vector2i = Vector2i(button.get_screen_transform().get_origin())
+	popup_pos.y += int(button.size.y)
+	tag_editor_ui.popup(Rect2i(popup_pos, tag_editor_ui.size))
 
-func OnTagsUpdated() -> void:
-	var selected_tag_names: Array[StringName] = tag_editor_ui.tag_selector.selected_tag_names
+func OnTagsChanged(tags: Array[StringName]) -> void:
+	edited_container.default_tags = tags.duplicate()
+	emit_changed(get_edited_property(), edited_container)
+
+func _update_property() -> void:
+	var value = get_edited_object()[get_edited_property()]
 	
-	for tag_name in selected_tag_names:
-		if !edited_tag_container.HasTag(tag_name):
-			edited_tag_container.AddTagName(tag_name)
-	
-	emit_changed(get_edited_property(), edited_tag_container)
+	if value is TagContainer:
+		edited_container = value
+	else:
+		edited_container = TagContainer.new()
+		emit_changed(get_edited_property(), edited_container)
