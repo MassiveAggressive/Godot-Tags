@@ -4,5 +4,5 @@
 !addons/
 addons/*
 !addons/TagEditor/
-addons/TagEditor/.godot/
-addons/TagEditor/*.uid
+.godot/
+*.uid
