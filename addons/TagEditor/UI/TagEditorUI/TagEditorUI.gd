@@ -5,20 +5,19 @@ class_name TagEditorUI extends PopupPanel
 @onready var add_tag_button: Button = %AddTagButton
 @onready var tag_selector_ui: TagSelectorUI = $VBoxContainer/ScrollContainer/TagSelectorUI
 
-signal TagsChanged(tags: Array[StringName])
+signal SelectedTagsChanged(tags: Array[StringName])
 
 func _ready() -> void:
 	hide()
 	add_tag_button.pressed.connect(OnAddTagButtonPressed)
-	new_tag_name_input.text_submitted.connect(func(_text): OnAddTagButtonPressed())
-	tag_selector_ui.SelectedTagsChanged.connect(func(tags): TagsChanged.emit(tags))
+	new_tag_name_input.text_submitted.connect(OnAddTagButtonPressed)
+	tag_selector_ui.SelectedTagsChanged.connect(func(tags: Array[StringName]): SelectedTagsChanged.emit(tags))
 
 func SetSelectedTags(tags: Array[StringName]) -> void:
-	# Ensure the UI is ready before setting tags
 	if not is_node_ready():
 		await ready
 	
-	tag_selector_ui.selected_tags = tags.duplicate()
+	tag_selector_ui.selected_tags = tags
 	tag_selector_ui.RefreshTree()
 
 func OnAddTagButtonPressed() -> void:

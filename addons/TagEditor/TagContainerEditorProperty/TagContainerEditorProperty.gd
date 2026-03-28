@@ -1,8 +1,10 @@
 class_name TagContainerEditorProperty extends EditorProperty
 
-var button_scene: PackedScene = preload("uid://bd3bpl3rv07ia")
-var button: TagContainerEditorPropertyUI # Kept this declaration as it's used in the new code
+var button_scene: PackedScene = preload("res://addons/TagEditor/UI/TagContainerEditorPropertyUI/TagContainerEditorPropertyUI.tscn")
+var button: TagContainerEditorPropertyUI
+
 var edited_container: TagContainer
+
 var tag_editor_ui: TagEditorUI
 
 func _init(_tag_editor_ui: TagEditorUI) -> void:
@@ -15,20 +17,17 @@ func _init(_tag_editor_ui: TagEditorUI) -> void:
 	button.pressed.connect(OnButtonPressed)
 
 func OnButtonPressed() -> void:
-	tag_editor_ui.SetSelectedTags(edited_container.default_tags)
+	for connection in tag_editor_ui.SelectedTagsChanged.get_connections():
+		tag_editor_ui.SelectedTagsChanged.disconnect(connection.callable)
 	
-	# Disconnect previous connections to avoid multiple listeners
-	for connection in tag_editor_ui.TagsChanged.get_connections():
-		tag_editor_ui.TagsChanged.disconnect(connection.callable)
+	tag_editor_ui.SetSelectedTags(edited_container.GetDefaultTags())
+	tag_editor_ui.SelectedTagsChanged.connect(OnSelectedTagsChanged)
 	
-	tag_editor_ui.TagsChanged.connect(OnTagsChanged)
-	
-	# Position the popup below the property
 	var popup_pos: Vector2i = Vector2i(button.get_screen_transform().get_origin())
 	popup_pos.y += int(button.size.y)
 	tag_editor_ui.popup(Rect2i(popup_pos, tag_editor_ui.size))
 
-func OnTagsChanged(tags: Array[StringName]) -> void:
+func OnSelectedTagsChanged(tags: Array[StringName]) -> void:
 	edited_container.default_tags = tags.duplicate()
 	emit_changed(get_edited_property(), edited_container)
 

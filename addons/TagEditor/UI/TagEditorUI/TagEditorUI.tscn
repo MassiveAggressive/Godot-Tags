@@ -14,7 +14,6 @@ bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
 disable_3d = true
 oversampling_override = 1.0
 size = Vector2i(300, 300)
-visible = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_45c0a")
 script = ExtResource("1_script")
 metadata/_custom_type_script = "uid://d1oesa8cck7uu"

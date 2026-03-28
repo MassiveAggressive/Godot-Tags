@@ -17,7 +17,7 @@ var id_to_name: Dictionary[int, StringName]
 var parents_hierarchy: Dictionary[int, PackedInt32Array]
 var children_hierarchy: Dictionary[int, PackedInt32Array]
 
-func _ready() -> void:
+func _init() -> void:
 	var config: ConfigFile = ConfigFile.new()
 	var error: Error = config.load(config_path)
 	
@@ -25,7 +25,7 @@ func _ready() -> void:
 		tag_names = config.get_value("Tags", "tags", null)
 		
 		if tag_names != null:
-			for tag_name in tag_names:
+			for tag_name: StringName in tag_names:
 				RegisterTagName(tag_name)
 
 func AddTagName(tag_name: StringName) -> void:
@@ -46,6 +46,12 @@ func RemoveTagName(tag_name: StringName) -> void:
 	UnregisterTagName(tag_name)
 	SaveTags()
 
+func GetNewId() -> int:
+	if !id_to_name.is_empty():
+		return id_to_name.keys().max() + 1
+	
+	return 0
+
 func RegisterTagName(tag_name: StringName) -> int:
 	if registered_tag_names.has(tag_name):
 		return -1
@@ -55,9 +61,7 @@ func RegisterTagName(tag_name: StringName) -> int:
 	if dot >= 0:
 		RegisterTagName(tag_name.substr(0, dot))
 	
-	var new_tag_id: int = 0
-	if not id_to_name.is_empty():
-		new_tag_id = id_to_name.keys().max() + 1
+	var new_tag_id: int = GetNewId()
 	
 	registered_tag_names.append(tag_name)
 	name_to_id[tag_name] = new_tag_id
@@ -139,7 +143,6 @@ func GetChildrenIdsByName(tag_name: StringName) -> PackedInt32Array:
 
 func GetParentNamesById(tag_id: int) -> Array[StringName]:
 	var parent_ids: PackedInt32Array = GetParentIdsById(tag_id)
-	
 	var parent_tag_names: Array[StringName]
 	
 	for parent_id: int in parent_ids:
@@ -152,7 +155,6 @@ func GetParentNamesByName(tag_name: StringName) -> Array[StringName]:
 
 func GetChildrenNamesById(tag_id: int) -> Array[StringName]:
 	var children_ids: PackedInt32Array = GetChildrenIdsById(tag_id)
-	
 	var children_tag_names: Array[StringName]
 	
 	for children_id: int in children_ids:

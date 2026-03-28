@@ -7,21 +7,16 @@ var selected_tags: Array[StringName]
 signal SelectedTagsChanged(tags: Array[StringName])
 
 func _ready() -> void:
-	# Initial UI setup
 	columns = 2
 	set_column_titles_visible(false)
 	set_column_expand(0, false)
 	set_column_custom_minimum_width(0, 30)
 	hide_root = true
 	
-	if not item_edited.is_connected(OnTreeItemEdited):
-		item_edited.connect(OnTreeItemEdited)
+	item_edited.connect(OnTreeItemEdited)
 	
-	if not TagManager.TagNameRegistered.is_connected(OnTagRegistered):
-		TagManager.TagNameRegistered.connect(OnTagRegistered)
-	
-	if not TagManager.TagNameUnregistered.is_connected(OnTagRegistered):
-		TagManager.TagNameUnregistered.connect(OnTagRegistered)
+	TagManager.TagNameRegistered.connect(OnTagRegistered)
+	TagManager.TagNameUnregistered.connect(OnTagRegistered)
 	
 	RefreshTree()
 
@@ -40,7 +35,6 @@ func OnTreeItemEdited() -> void:
 		selected_tags.erase(tag_name)
 	
 	SelectedTagsChanged.emit(selected_tags)
-	print("Selected Tags: ", selected_tags)
 
 func RefreshTree() -> void:
 	clear()
@@ -52,7 +46,6 @@ func RefreshTree() -> void:
 	for tag_name: StringName in TagManager.registered_tag_names:
 		CreateTreeItem(tag_name)
 	
-	# Initial check state sync
 	for tag_name in selected_tags:
 		if tag_items.has(tag_name):
 			tag_items[tag_name].set_checked(0, true)
@@ -75,11 +68,9 @@ func CreateTreeItem(tag_name: StringName) -> TreeItem:
 	var parts: Array[StringName] = TagManager.ParseTagName(tag_name)
 	var display_name: StringName = parts[-1]
 	
-	# Sütun 0: Checkbox
 	item.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
 	item.set_editable(0, true)
 	
-	# Sütun 1: Tag İsmi
 	item.set_text(1, display_name)
 	item.set_metadata(1, tag_name)
 	

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 TagManager="*uid://c0wbnwr04npyb"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/TagEditor/plugin.cfg")
