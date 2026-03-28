@@ -1,3 +1,8 @@
-# Godot 4+ specific ignores
-.godot/
-/android/
+/*
+!.gitignore
+
+!addons/
+addons/*
+!addons/TagEditor/
+addons/TagEditor/.godot/
+addons/TagEditor/*.uid
