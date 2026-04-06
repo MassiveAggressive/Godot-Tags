@@ -2,8 +2,6 @@
 !.gitignore
 
 !addons/
-addons/*
-!addons/TagEditor/
 
 .godot/
 *.uid
