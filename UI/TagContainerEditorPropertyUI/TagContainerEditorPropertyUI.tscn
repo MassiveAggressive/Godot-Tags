@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bd3bpl3rv07ia"]
 
-[ext_resource type="Script" uid="uid://r8mf3nf4kty6" path="res://addons/TagEditor/UI/TagContainerEditorPropertyUI/TagContainerEditorPropertyUI.gd" id="1_gelpj"]
+[ext_resource type="Script" uid="uid://r8mf3nf4kty6" path="res://addons/Tags/UI/TagContainerEditorPropertyUI/TagContainerEditorPropertyUI.gd" id="1_gelpj"]
 
 [node name="TagContainerEditorPropertyUI" type="Button" unique_id=449405131]
 offset_right = 8.0
