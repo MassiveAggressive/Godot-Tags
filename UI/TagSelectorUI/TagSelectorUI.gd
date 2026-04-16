@@ -1,10 +1,10 @@
 @tool
 class_name TagSelectorUI extends Tree
 
+signal SelectedTagsChanged(tags: Array[StringName])
+
 var tag_items: Dictionary[StringName, TreeItem]
 var selected_tags: Array[StringName]
-
-signal SelectedTagsChanged(tags: Array[StringName])
 
 func _ready() -> void:
 	columns = 2
@@ -75,4 +75,5 @@ func CreateTreeItem(tag_name: StringName) -> TreeItem:
 	item.set_metadata(1, tag_name)
 	
 	tag_items[tag_name] = item
+	
 	return item

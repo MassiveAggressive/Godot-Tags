@@ -2,18 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b1dawh14ux85x" path="res://addons/Tags/UI/TagSelectorUI/TagSelectorUI.gd" id="1_script"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75sj4"]
-bg_color = Color(0.12225223, 0.12225223, 0.12225223, 1)
-
-[node name="TagSelectorUI" type="Tree" unique_id=338307388]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TagSelectorUI" type="Tree" unique_id=138242413]
+offset_right = 434.0
+offset_bottom = 381.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_75sj4")
 columns = 2
 hide_root = true
 script = ExtResource("1_script")
-metadata/_custom_type_script = "uid://dfpo7q33oigf6"
+color = Color(0.15127608, 0.15127608, 0.15127608, 1)
+metadata/_custom_type_script = "uid://b1dawh14ux85x"

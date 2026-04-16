@@ -3,27 +3,21 @@
 [ext_resource type="Script" uid="uid://dodu5wskgcuf5" path="res://addons/Tags/UI/TagEditorUI/TagEditorUI.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://d6jv17ogt8bm" path="res://addons/Tags/UI/TagSelectorUI/TagSelectorUI.tscn" id="2_selector"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45c0a"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fdbn"]
+bg_color = Color(0.18000486, 0.1800049, 0.18000478, 1)
 
-[node name="TagEditorUI" type="PopupPanel" unique_id=1616831696]
+[node name="TagEditorUI" type="PopupPanel" unique_id=1005212320]
 disable_3d = true
 oversampling_override = 1.0
 size = Vector2i(300, 300)
 visible = true
-theme_override_styles/panel = SubResource("StyleBoxFlat_45c0a")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3fdbn")
 script = ExtResource("1_script")
-metadata/_custom_type_script = "uid://d1oesa8cck7uu"
+metadata/_custom_type_script = "uid://dodu5wskgcuf5"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=445576294]
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 295.0
-offset_bottom = 295.0
+offset_right = 300.0
+offset_bottom = 300.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=508065462]
 layout_mode = 2
@@ -45,4 +39,3 @@ size_flags_vertical = 3
 
 [node name="TagSelectorUI" parent="VBoxContainer/ScrollContainer" unique_id=1995844615 instance=ExtResource("2_selector")]
 layout_mode = 2
-size_flags_horizontal = 3

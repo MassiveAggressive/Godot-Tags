@@ -5,6 +5,7 @@ var tag_editor_ui: TagEditorUI
 
 func _init() -> void:
 	tag_editor_ui = tag_editor_ui_scene.instantiate()
+	
 	EditorInterface.get_base_control().add_child(tag_editor_ui)
 
 func _can_handle(object: Object) -> bool:
@@ -17,3 +18,7 @@ func _parse_property(object: Object, type: Variant.Type, name: String, hint_type
 		return true
 	
 	return false
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		tag_editor_ui.queue_free()

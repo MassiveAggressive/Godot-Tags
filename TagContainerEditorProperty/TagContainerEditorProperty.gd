@@ -1,3 +1,4 @@
+@tool
 class_name TagContainerEditorProperty extends EditorProperty
 
 var button_scene: PackedScene = preload("res://addons/Tags/UI/TagContainerEditorPropertyUI/TagContainerEditorPropertyUI.tscn")
