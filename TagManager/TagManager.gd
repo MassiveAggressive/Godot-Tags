@@ -44,6 +44,7 @@ func RemoveTagName(tag_name: StringName) -> void:
 	tag_names.erase(tag_name)
 	
 	UnregisterTagName(tag_name)
+	
 	SaveTags()
 
 func GetNewId() -> int:

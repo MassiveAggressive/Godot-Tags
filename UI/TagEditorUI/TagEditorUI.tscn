@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bgffep7rwj2wa"]
 
 [ext_resource type="Script" uid="uid://dodu5wskgcuf5" path="res://addons/Tags/UI/TagEditorUI/TagEditorUI.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://d6jv17ogt8bm" path="res://addons/Tags/UI/TagSelectorUI/TagSelectorUI.tscn" id="2_selector"]
+[ext_resource type="Script" uid="uid://b1dawh14ux85x" path="res://addons/Tags/UI/TagSelectorUI/TagSelectorUI.gd" id="2_3fdbn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3fdbn"]
 bg_color = Color(0.18000486, 0.1800049, 0.18000478, 1)
@@ -37,5 +37,12 @@ text = "Add"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="TagSelectorUI" parent="VBoxContainer/ScrollContainer" unique_id=1995844615 instance=ExtResource("2_selector")]
+[node name="TagSelectorUI" type="Tree" parent="VBoxContainer/ScrollContainer" unique_id=546548271]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+hide_root = true
+script = ExtResource("2_3fdbn")
+metadata/_custom_type_script = "uid://b1dawh14ux85x"

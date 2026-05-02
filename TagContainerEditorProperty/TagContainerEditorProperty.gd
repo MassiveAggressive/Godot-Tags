@@ -17,6 +17,12 @@ func _init(_tag_editor_ui: TagEditorUI) -> void:
 	
 	button.pressed.connect(OnButtonPressed)
 
+func PopupEditor() -> void:
+	var popup_pos: Vector2i = Vector2i(button.get_screen_transform().get_origin())
+	
+	popup_pos.y += int(button.size.y)
+	tag_editor_ui.popup(Rect2i(popup_pos, tag_editor_ui.size))
+
 func OnButtonPressed() -> void:
 	for connection in tag_editor_ui.SelectedTagsChanged.get_connections():
 		tag_editor_ui.SelectedTagsChanged.disconnect(connection.callable)
@@ -24,9 +30,7 @@ func OnButtonPressed() -> void:
 	tag_editor_ui.SetSelectedTags(edited_container.GetDefaultTags())
 	tag_editor_ui.SelectedTagsChanged.connect(OnSelectedTagsChanged)
 	
-	var popup_pos: Vector2i = Vector2i(button.get_screen_transform().get_origin())
-	popup_pos.y += int(button.size.y)
-	tag_editor_ui.popup(Rect2i(popup_pos, tag_editor_ui.size))
+	PopupEditor()
 
 func OnSelectedTagsChanged(tags: Array[StringName]) -> void:
 	edited_container.default_tags = tags.duplicate()
